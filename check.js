@@ -1,7 +1,13 @@
 // These characters are ignored by the checker - probably not comlete though, just found these by trying various ones
 const skips = /[ .,;-_~'´`!?"&<>()\[\]{}　（）．‥…，；ー＿〜’！？”＜＞［］｛｝]/;
 
-const blockedScripts = /[\u0600-\u06FF\u0750-\u077F]/
+const arabicPersian = /[\u0600-\u06FF\u0750-\u077F]/;
+const devanagari = /[\u0900-\u097F\uA8E0-\uA8FF]/;
+const armenian = /[\u0530-\u058F]/;
+const kannada = /[\u0C80-\u0CFF]/;
+const malayalam = /[\u0D00-\u0D7F]/;
+const myanmar = /[\u1000-\u109F]/;
+const telugu = /[\u0C00-\u0C7F]/;
 const greekAccented = /[ίϊΐόάέύϋΰήώ]/;
 
 function checkString(s) {
@@ -59,8 +65,38 @@ function update() {
     o.innerHTML = "";
     n.innerHTML = "";
 
-    if (blockedScripts.test(s.toLowerCase())) {
+    if (arabicPersian.test(s.toLowerCase())) {
         n.innerHTML = "arabic/persian script is not allowed";
+        o.innerHTML+= "<span>" + s + "</span>";
+        return;
+    }
+    if (devanagari.test(s.toLowerCase())) {
+        n.innerHTML = "devanagari script is not allowed";
+        o.innerHTML+= "<span>" + s + "</span>";
+        return;
+    }
+    if (armenian.test(s.toLowerCase())) {
+        n.innerHTML = "armenian script is not allowed";
+        o.innerHTML+= "<span>" + s + "</span>";
+        return;
+    }
+    if (kannada.test(s.toLowerCase())) {
+        n.innerHTML = "kannada script is not allowed";
+        o.innerHTML+= "<span>" + s + "</span>";
+        return;
+    }
+    if (malayalam.test(s.toLowerCase())) {
+        n.innerHTML = "malayalam script is not allowed";
+        o.innerHTML+= "<span>" + s + "</span>";
+        return;
+    }
+    if (myanmar.test(s.toLowerCase())) {
+        n.innerHTML = "myanmar script is not allowed";
+        o.innerHTML+= "<span>" + s + "</span>";
+        return;
+    }
+    if (telugu.test(s.toLowerCase())) {
+        n.innerHTML = "telugu script is not allowed";
         o.innerHTML+= "<span>" + s + "</span>";
         return;
     }
