@@ -10,17 +10,54 @@ const myanmar = /[\u1000-\u109F]/;
 const telugu = /[\u0C00-\u0C7F]/;
 const greekAccented = /[ίϊΐόάέύϋΰήώ]/;
 
-function checkString(s) {
+function isValidChar(c) {
+    if (arabicPersian.test(c)) {
+        return "arabic/persian script is not allowed";
+    }
+    if (devanagari.test(c)) {
+        return "devanagari script is not allowed";
+    }
+    if (armenian.test(c)) {
+        return "armenian script is not allowed";
+    }
+    if (kannada.test(c)) {
+        return "kannada script is not allowed";
+    }
+    if (malayalam.test(c)) {
+        return "malayalam script is not allowed";
+    }
+    if (myanmar.test(c)) {
+        return "myanmar script is not allowed";
+    }
+    if (telugu.test(c)) {
+        return "telugu script is not allowed";
+    }
+    if (greekAccented.test(c)) {
+        return "greek letters with accents are not allowed";
+    }
+    return true;
+}
+
+function checkString(s, specialerrors) {
     // fullwidth to halfwidth https://stackoverflow.com/a/20488304
     s = s.toLowerCase().replace(
         /[\uff01-\uff5e]/g,
-        function(ch) { return String.fromCharCode(ch.charCodeAt(0) - 0xfee0); }
+        function (ch) {
+            return String.fromCharCode(ch.charCodeAt(0) - 0xfee0);
+        }
     );
     let marks = [];
     let pos = 0;
     while (pos < s.length) {
         if (skips.test(s[pos])) {
             // If this is a skipped character, just move on (makes the range more precise)
+            pos++;
+            continue;
+        }
+        let valid = isValidChar(s[pos]);
+        if (valid !== true) {
+            specialerrors.push(valid);
+            marks.push([pos, 1]);
             pos++;
             continue;
         }
@@ -36,12 +73,20 @@ function checkString(s) {
                     // Keep trie position but go to next character
                     length++;
                 } else {
-                    let ch = s.charCodeAt(pos + length);
-                    if (!cur.hasOwnProperty(ch)) res = false;
-                    else if (cur[ch] === 1) res = true;
-                    else {
-                        cur = cur[ch];
-                        length++;
+                    valid = isValidChar(s[pos + length]);
+                    if (valid !== true) {
+                        specialerrors.push(valid);
+                        marks.push([pos + length, 1]);
+                        pos = pos + length + 1;
+                        res = false;
+                    } else {
+                        let ch = s.charCodeAt(pos + length);
+                        if (!cur.hasOwnProperty(ch)) res = false;
+                        else if (cur[ch] === 1) res = true;
+                        else {
+                            cur = cur[ch];
+                            length++;
+                        }
                     }
                 }
             }
@@ -65,49 +110,10 @@ function update() {
     o.innerHTML = "";
     n.innerHTML = "";
 
-    if (arabicPersian.test(s.toLowerCase())) {
-        n.innerHTML = "arabic/persian script is not allowed";
-        o.innerHTML+= "<span>" + s + "</span>";
-        return;
-    }
-    if (devanagari.test(s.toLowerCase())) {
-        n.innerHTML = "devanagari script is not allowed";
-        o.innerHTML+= "<span>" + s + "</span>";
-        return;
-    }
-    if (armenian.test(s.toLowerCase())) {
-        n.innerHTML = "armenian script is not allowed";
-        o.innerHTML+= "<span>" + s + "</span>";
-        return;
-    }
-    if (kannada.test(s.toLowerCase())) {
-        n.innerHTML = "kannada script is not allowed";
-        o.innerHTML+= "<span>" + s + "</span>";
-        return;
-    }
-    if (malayalam.test(s.toLowerCase())) {
-        n.innerHTML = "malayalam script is not allowed";
-        o.innerHTML+= "<span>" + s + "</span>";
-        return;
-    }
-    if (myanmar.test(s.toLowerCase())) {
-        n.innerHTML = "myanmar script is not allowed";
-        o.innerHTML+= "<span>" + s + "</span>";
-        return;
-    }
-    if (telugu.test(s.toLowerCase())) {
-        n.innerHTML = "telugu script is not allowed";
-        o.innerHTML+= "<span>" + s + "</span>";
-        return;
-    }
-    if (greekAccented.test(s.toLowerCase())) {
-        n.innerHTML = "greek letters with accents are not allowed";
-        o.innerHTML+= "<span>" + s + "</span>";
-        return;
-    }
-
-    let marks = checkString(s);
-    if (marks.length === 0 && s.length > 0) n.innerHTML = "no problems :)";
+    let specialerrors = [];
+    let marks = checkString(s, specialerrors);
+    if (specialerrors.length > 0) n.innerHTML = specialerrors.filter((v, i, a) => a.indexOf(v) === i).join("<br>");
+    else if (marks.length === 0 && s.length > 0) n.innerHTML = "no problems :)";
 
     let lastpos = 0;
     for (let i = 0; i < marks.length; i++) {
