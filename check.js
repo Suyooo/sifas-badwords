@@ -1,5 +1,5 @@
 // These characters are ignored by the checker - probably not comlete though, just found these by trying various ones
-const skips = /[ .,;-_~'´`!?"&<>()\[\]{}　（）．‥…，；ー＿〜’！？”＜＞［］｛｝]/;
+const skips = /[ .,;\-_~'´`!?"&<>()\[\]{}　（）．‥…，；ー＿〜’！？”＜＞［］｛｝]/;
 
 const arabicPersian = /[\u0600-\u06FF\u0750-\u077F]/;
 const devanagari = /[\u0900-\u097F\uA8E0-\uA8FF]/;
