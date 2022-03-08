@@ -8,6 +8,7 @@ const kannada = /[\u0C80-\u0CFF]/;
 const malayalam = /[\u0D00-\u0D7F]/;
 const myanmar = /[\u1000-\u109F]/;
 const telugu = /[\u0C00-\u0C7F]/;
+const halfCyrillic = /[\u0450-\u04FF]/;
 const greekAccented = /[ίϊΐόάέύϋΰήώ]/;
 
 function isValidChar(c) {
@@ -31,6 +32,9 @@ function isValidChar(c) {
     }
     if (telugu.test(c)) {
         return "telugu script is not allowed";
+    }
+    if (halfCyrillic.test(c)) {
+        return "some cryllic script is not allowed";
     }
     if (greekAccented.test(c)) {
         return "greek letters with accents are not allowed";
