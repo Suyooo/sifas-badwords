@@ -1,7 +1,8 @@
 // These characters are ignored by the checker - probably not comlete though, just found these by trying various ones
 const skips = /[ .,;-_~'´`!?"&<>()\[\]{}　（）．‥…，；ー＿〜’！？”＜＞［］｛｝]/;
 
-const arabicOrPersian = /[\u0600-\u06FF\u0750-\u077F]/;
+const blockedScripts = /[\u0600-\u06FF\u0750-\u077F]/
+const greekAccented = /[ίϊΐόάέύϋΰήώ]/;
 
 function checkString(s) {
     // fullwidth to halfwidth https://stackoverflow.com/a/20488304
@@ -58,8 +59,13 @@ function update() {
     o.innerHTML = "";
     n.innerHTML = "";
 
-    if (arabicOrPersian.test(s)) {
-        n.innerHTML = "arabic/persian alphabet is not allowed";
+    if (blockedScripts.test(s.toLowerCase())) {
+        n.innerHTML = "arabic/persian script is not allowed";
+        o.innerHTML+= "<span>" + s + "</span>";
+        return;
+    }
+    if (greekAccented.test(s.toLowerCase())) {
+        n.innerHTML = "greek letters with accents are not allowed";
         o.innerHTML+= "<span>" + s + "</span>";
         return;
     }
