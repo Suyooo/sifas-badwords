@@ -1,7 +1,7 @@
 // These characters are ignored by the checker - probably not comlete though, just found these by trying various ones
 const skips = /[ .,;\-_~'´`!?"&<>()\[\]{}　（）．‥…，；ー＿〜’！？”＜＞［］｛｝]/;
 
-const arabicPersian = /[\u0600-\u06FF\u0750-\u077F]/;
+/*const arabicPersian = /[\u0600-\u06FF\u0750-\u077F]/;
 const devanagari = /[\u0900-\u097F\uA8E0-\uA8FF]/;
 const armenian = /[\u0530-\u058F]/;
 const kannada = /[\u0C80-\u0CFF]/;
@@ -40,7 +40,7 @@ function isValidChar(c) {
         return "greek letters with accents are not allowed";
     }
     return true;
-}
+}*/
 
 function checkString(s, specialerrors) {
     // fullwidth to halfwidth https://stackoverflow.com/a/20488304
@@ -58,13 +58,13 @@ function checkString(s, specialerrors) {
             pos++;
             continue;
         }
-        let valid = isValidChar(s[pos]);
+        /*let valid = isValidChar(s[pos]);
         if (valid !== true) {
             specialerrors.push(valid);
             marks.push([pos, 1]);
             pos++;
             continue;
-        }
+        }*/
 
         let length = 0;
         let cur = trie;
@@ -77,13 +77,13 @@ function checkString(s, specialerrors) {
                     // Keep trie position but go to next character
                     length++;
                 } else {
-                    valid = isValidChar(s[pos + length]);
+                    /*valid = isValidChar(s[pos + length]);
                     if (valid !== true) {
                         specialerrors.push(valid);
                         marks.push([pos + length, 1]);
                         pos = pos + length + 1;
                         res = false;
-                    } else {
+                    } else {*/
                         let ch = s.charCodeAt(pos + length);
                         if (!cur.hasOwnProperty(ch)) res = false;
                         else if (cur[ch] === 1) res = true;
@@ -91,7 +91,7 @@ function checkString(s, specialerrors) {
                             cur = cur[ch];
                             length++;
                         }
-                    }
+                    //}
                 }
             }
         }
