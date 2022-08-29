@@ -31,6 +31,14 @@
         #output span {
             background-color: hotpink;
         }
+
+        [type="radio"]:checked + span::after {
+            border: 2px solid var(--key-normal);
+        }
+
+        [type="radio"]:checked + span::after {
+            background-color: var(--key-normal);
+        }
     </style>
 </head>
 <body>
@@ -59,6 +67,20 @@
     <p>This tool allows you to check any text against the word filter of SIFAS. Filtered words will be marked red.</p>
     <h5>Input</h5>
     <textarea id="input" onkeyup="update()"></textarea>
+    <div class="row">
+        <div class="col s12 m6">
+            <label>
+                <input type="radio" name="region" id="region-gl" value="gl" onclick="update()" checked>
+                <span>Use GL Word List</span>
+            </label>
+        </div>
+        <div class="col s12 m6">
+            <label>
+                <input type="radio" name="region" id="region-jp" value="jp" onclick="update()">
+                <span>Use JP Word List</span>
+            </label>
+        </div>
+    </div>
     <h5>Result</h5>
     <div id="output" class="orange lighten-5"></div>
     <span id="note" style="font-size: 70%"></span>

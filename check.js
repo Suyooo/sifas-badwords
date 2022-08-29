@@ -67,7 +67,7 @@ function checkString(s, specialerrors) {
         }
 
         let length = 0;
-        let cur = trie;
+        let cur = document.getElementById("region-jp").checked ? trieJp : trieGl;
         let res = undefined;
 
         while (res === undefined) {
