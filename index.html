@@ -15,7 +15,6 @@
     <link type="text/css" rel="stylesheet" href="/sifas/calc/vendor/fonts/roboto/900.css" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="/sifas/calc/vendor/materialize.min.css" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="/sifas/calc/css/style.css" media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="/sifas/calc/css/sppower.css" media="screen,projection"/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -63,9 +62,9 @@
     <h5>Result</h5>
     <div id="output" class="orange lighten-5"></div>
     <span id="note" style="font-size: 70%"></span>
-    <p>While this checker is based on the SIFAS GL pool, it should also be usable for SIF as the word filter is very similar. However, most of the block list does not apply to the JP version.</p>
-    <p>The bad word list is not guaranteed to be complete. Only all possible a-z words up to six characters are bruteforced, and while I tested the game against some profanity lists I found online, there might still be a lot missing. If you have a message that gets blocked in the game but looks fine here, let me know, and I'll find out what's wrong: <a href="twitter.com/Suyo_">@Suyo_ on Twitter</a> or Suyooo#7026 on <a href="https://discord.gg/sif">the SIF Discord</a> or <a href="https://discord.gg/lovelive">the r/LL Discord</a>.</p>
-    <p>The raw list of blocked words is available too, but obviously, a content warning: there's all kinds of slurs and offensive words in various languages. <a href="wordlist.json">You can find the bad word list here.</a> (Chrome and it's derivatives just show it raw and ugly, <a href="https://getfirefox.com">use Firefox</a> instead (that's advice in general too))</p>
+    <p>The word lists for this checker are based on the SIFAS pools. Want to check for problems in SIF messages instead? Go to <a href="/llsif/badwords/">the LLSIF Bad Words Checker</a>.</p>
+    <p>This list of words being checked is not guaranteed to be complete. Only all possible a-z words up to six characters have been bruteforced, and while I tested the game against some profanity lists I found online, there might still be a lot missing. If you have a message that gets blocked in the game but reports no problems here, let me know, and I'll find out what's wrong: <a href="twitter.com/Suyo_">@Suyo_ on Twitter</a> or Suyooo#7026 on <a href="https://discord.gg/sif">the SIF Discord</a> or <a href="https://discord.gg/lovelive">the r/LL Discord</a>.</p>
+    <p>The raw list of blocked words is available too, but obviously, a content warning: there's all kinds of slurs and offensive words in various languages. You can find the bad word list here: <a href="wordlist_gl.json">GL</a> <a href="wordlist_jp.json">JP</a> (Chrome and it's derivatives just show it raw and ugly, <a href="https://getfirefox.com">use Firefox</a> instead (that's advice in general too))</p>
 </div>
 
 <script type="text/javascript" src="trie.js"></script>

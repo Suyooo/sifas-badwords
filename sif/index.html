@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>LLSIF Bad Words Checker</title>
+    <meta name="description" content="Find out why the game's word filter is rejecting your message.">
+    <link rel="canonical" href="https://suyo.be/llsif/badwords/" />
+
+    <link type="text/css" rel="stylesheet" href="/llsif/calc/vendor/fonts/material/400.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/llsif/calc/vendor/fonts/roboto/100.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/llsif/calc/vendor/fonts/roboto/300.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/llsif/calc/vendor/fonts/roboto/400.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/llsif/calc/vendor/fonts/roboto/500.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/llsif/calc/vendor/fonts/roboto/700.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/llsif/calc/vendor/fonts/roboto/900.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/llsif/calc/vendor/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/llsif/calc/css/style.css" media="screen,projection"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="icon" type="image/png" sizes="96x96" href="/llsif/calc/image/launcher-icon-96.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffcc80">
+    <meta name="theme-color" content="#ffcc80">
+
+    <style>
+        #output {
+            padding: 0.5em 1em;
+        }
+
+        #output span {
+            background-color: hotpink;
+        }
+    </style>
+</head>
+<body>
+<script>
+    if (document.cookie.indexOf("dark-mode=yes") !== -1) {
+        document.body.className += 'dark-mode';
+    }
+</script>
+<div class="font-preload">
+    <span style="font-weight: 100">Thin</span>
+    <span style="font-weight: 300">Light</span>
+    <span style="font-weight: 400">Regular</span>
+    <span style="font-weight: 500">Medium</span>
+    <span style="font-weight: 700">Bold</span>
+</div>
+<nav>
+    <div class="nav-wrapper pink lighten-5">
+        <a class="brand-logo center">Bad Words Checker</a>
+        <ul id="nav-mobile" class="left">
+            <li class="pink lighten-3"><a href="/llsif/calc"><i
+                    class="material-icons left">keyboard_arrow_left</i>BACK</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <p>This tool allows you to check any text against the word filter of LLSIF. Filtered words will be marked red.</p>
+    <h5>Input</h5>
+    <textarea id="input" onkeyup="update()"></textarea>
+    <h5>Result</h5>
+    <div id="output" class="pink lighten-5"></div>
+    <span id="note" style="font-size: 70%"></span>
+    <p>The word lists for this checker are based on the LLSIF pool. Want to check for problems with SIFAS profiles instead? Go to <a href="/sifas/badwords/">the SIFAS Bad Words Checker</a>.</p>
+    <p>The list of words being checked is taken from the original checker by Caraxian and GrygrFlzr. It should be complete for all a-z words under 7 characters. Note that the numbers 69, 70, 80, 90 are blocked on JP only (to disallow phone numbers). If you have a message that gets blocked in the game but reports no problems here, let me know, and I'll find out what's wrong: <a href="twitter.com/Suyo_">@Suyo_ on Twitter</a> or Suyooo#7026 on <a href="https://discord.gg/sif">the SIF Discord</a> or <a href="https://discord.gg/lovelive">the r/LL Discord</a>.</p>
+    <p>The raw list of blocked words is available too, but obviously, a content warning: there's all kinds of slurs and offensive words in various languages. <a href="wordlist.json">You can find the bad word list here.</a> (Chrome and it's derivatives just show it raw and ugly, <a href="https://getfirefox.com">use Firefox</a> instead (that's advice in general too))</p>
+</div>
+
+<script type="text/javascript" src="trie.js"></script>
+<script type="text/javascript" src="check.js"></script>
+</body>
+</html>
